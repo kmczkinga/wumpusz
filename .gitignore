@@ -23,7 +23,11 @@
 hs_err_pid*
 
 # Maven
-target/
+target
+lib
+out
+
+wumplusz.iml
 
 # IntelliJ
 .DS_Store
