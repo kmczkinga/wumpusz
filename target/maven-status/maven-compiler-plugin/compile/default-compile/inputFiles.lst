@@ -1,0 +1,12 @@
+/Users/zoltannegyesi/Desktop/Wumplusz/wumpusz/src/main/java/hu/nye/progtech/wumplusz/model/MapVO.java
+/Users/zoltannegyesi/Desktop/Wumplusz/wumpusz/src/main/java/hu/nye/progtech/wumplusz/model/GameStore.java
+/Users/zoltannegyesi/Desktop/Wumplusz/wumpusz/src/main/java/hu/nye/progtech/wumplusz/service/input/InputReader.java
+/Users/zoltannegyesi/Desktop/Wumplusz/wumpusz/src/main/java/hu/nye/progtech/wumplusz/model/enums/Entity.java
+/Users/zoltannegyesi/Desktop/Wumplusz/wumpusz/src/main/java/hu/nye/progtech/wumplusz/Main.java
+/Users/zoltannegyesi/Desktop/Wumplusz/wumpusz/src/main/java/hu/nye/progtech/wumplusz/service/util/InstructionOutputWriter.java
+/Users/zoltannegyesi/Desktop/Wumplusz/wumpusz/src/main/java/hu/nye/progtech/wumplusz/service/game/GameController.java
+/Users/zoltannegyesi/Desktop/Wumplusz/wumpusz/src/main/java/hu/nye/progtech/wumplusz/repository/impl/JdbcGameRepository.java
+/Users/zoltannegyesi/Desktop/Wumplusz/wumpusz/src/main/java/hu/nye/progtech/wumplusz/repository/GameRepository.java
+/Users/zoltannegyesi/Desktop/Wumplusz/wumpusz/src/main/java/hu/nye/progtech/wumplusz/repository/impl/TxtGameRepository.java
+/Users/zoltannegyesi/Desktop/Wumplusz/wumpusz/src/main/java/hu/nye/progtech/wumplusz/service/map/MapEditor.java
+/Users/zoltannegyesi/Desktop/Wumplusz/wumpusz/src/main/java/hu/nye/progtech/wumplusz/service/input/UserInteractionHandler.java

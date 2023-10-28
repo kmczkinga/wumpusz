@@ -1,0 +1,7 @@
+/Users/zoltannegyesi/Desktop/Wumplusz/wumpusz/src/test/java/hu/nye/progtech/wumplusz/repository/impl/JdbcGameRepositoryTest.java
+/Users/zoltannegyesi/Desktop/Wumplusz/wumpusz/src/test/java/hu/nye/progtech/wumplusz/service/input/InputReaderTest.java
+/Users/zoltannegyesi/Desktop/Wumplusz/wumpusz/src/test/java/hu/nye/progtech/wumplusz/service/input/UserInteractionHandlerTest.java
+/Users/zoltannegyesi/Desktop/Wumplusz/wumpusz/src/test/java/hu/nye/progtech/wumplusz/service/map/MapEditorTest.java
+/Users/zoltannegyesi/Desktop/Wumplusz/wumpusz/src/test/java/hu/nye/progtech/wumplusz/service/util/InstructionOutputWriterTest.java
+/Users/zoltannegyesi/Desktop/Wumplusz/wumpusz/src/test/java/hu/nye/progtech/wumplusz/service/game/GameControllerTest.java
+/Users/zoltannegyesi/Desktop/Wumplusz/wumpusz/src/test/java/hu/nye/progtech/wumplusz/repository/impl/TxtGameRepositoryTest.java

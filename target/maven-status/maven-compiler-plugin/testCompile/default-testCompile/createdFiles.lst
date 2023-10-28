@@ -1,0 +1,7 @@
+hu/nye/progtech/wumplusz/service/map/MapEditorTest.class
+hu/nye/progtech/wumplusz/service/util/InstructionOutputWriterTest.class
+hu/nye/progtech/wumplusz/service/input/UserInteractionHandlerTest.class
+hu/nye/progtech/wumplusz/repository/impl/TxtGameRepositoryTest.class
+hu/nye/progtech/wumplusz/service/input/InputReaderTest.class
+hu/nye/progtech/wumplusz/service/game/GameControllerTest.class
+hu/nye/progtech/wumplusz/repository/impl/JdbcGameRepositoryTest.class

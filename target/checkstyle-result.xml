@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="9.0.1">
+<file name="/Users/zoltannegyesi/Desktop/Wumplusz/wumpusz/src/main/java/hu/nye/progtech/wumplusz/repository/impl/JdbcGameRepository.java">
+</file>
+<file name="/Users/zoltannegyesi/Desktop/Wumplusz/wumpusz/src/main/java/hu/nye/progtech/wumplusz/repository/impl/TxtGameRepository.java">
+</file>
+<file name="/Users/zoltannegyesi/Desktop/Wumplusz/wumpusz/src/main/java/hu/nye/progtech/wumplusz/repository/GameRepository.java">
+</file>
+<file name="/Users/zoltannegyesi/Desktop/Wumplusz/wumpusz/src/main/java/hu/nye/progtech/wumplusz/Main.java">
+</file>
+<file name="/Users/zoltannegyesi/Desktop/Wumplusz/wumpusz/src/main/java/hu/nye/progtech/wumplusz/model/MapVO.java">
+</file>
+<file name="/Users/zoltannegyesi/Desktop/Wumplusz/wumpusz/src/main/java/hu/nye/progtech/wumplusz/model/enums/Entity.java">
+</file>
+<file name="/Users/zoltannegyesi/Desktop/Wumplusz/wumpusz/src/main/java/hu/nye/progtech/wumplusz/model/GameStore.java">
+</file>
+<file name="/Users/zoltannegyesi/Desktop/Wumplusz/wumpusz/src/main/java/hu/nye/progtech/wumplusz/service/util/InstructionOutputWriter.java">
+</file>
+<file name="/Users/zoltannegyesi/Desktop/Wumplusz/wumpusz/src/main/java/hu/nye/progtech/wumplusz/service/input/InputReader.java">
+</file>
+<file name="/Users/zoltannegyesi/Desktop/Wumplusz/wumpusz/src/main/java/hu/nye/progtech/wumplusz/service/input/UserInteractionHandler.java">
+</file>
+<file name="/Users/zoltannegyesi/Desktop/Wumplusz/wumpusz/src/main/java/hu/nye/progtech/wumplusz/service/game/GameController.java">
+</file>
+<file name="/Users/zoltannegyesi/Desktop/Wumplusz/wumpusz/src/main/java/hu/nye/progtech/wumplusz/service/map/MapEditor.java">
+</file>
+</checkstyle>

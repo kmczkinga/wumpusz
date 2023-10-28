@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="hu"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InputReader.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">wumplusz</a> &gt; <a href="index.source.html" class="el_package">hu.nye.progtech.wumplusz.service.input</a> &gt; <span class="el_source">InputReader.java</span></div><h1>InputReader.java</h1><pre class="source lang-java linenums">package hu.nye.progtech.wumplusz.service.input;
+
+import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
+
+/**
+ * Komponens, ami beolvassa a felhasználó bevitelt konzolról.
+ */
+
+public class InputReader {
+
+    private final Scanner scanner;
+
+<span class="fc" id="L15">    public InputReader(Scanner scanner) {</span>
+<span class="fc" id="L16">        this.scanner = scanner;</span>
+<span class="fc" id="L17">    }</span>
+
+    /**
+     * Beolvassa az inputot konzolról, majd Stringként visszaadja.
+     * Ha a Scanner nem talál sort, vagy le van zárva, akkor null-lal tér vissza.
+     *
+     * @return a felhasználó neve Stringként.
+     */
+
+    public String readString() {
+<span class="fc" id="L27">        String input = null;</span>
+        try {
+<span class="fc" id="L29">            input = scanner.next();</span>
+<span class="fc" id="L30">        } catch (NoSuchElementException | IllegalStateException e) {</span>
+<span class="fc" id="L31">            System.err.println(&quot;Hiba a beolvasás közben&quot;);</span>
+<span class="fc" id="L32">        }</span>
+<span class="fc" id="L33">        return input;</span>
+    }
+
+    /**
+     * Beolvassa a következő integert az inputról.
+     * Ha nem számot adott meg, újra bekéri.
+     */
+    public Integer readInteger() {
+        Integer input;
+        while (true) {
+            try {
+<span class="fc" id="L44">                input = Integer.parseInt(scanner.nextLine());</span>
+<span class="fc" id="L45">                break;</span>
+<span class="fc" id="L46">            } catch (NumberFormatException e) {</span>
+<span class="fc" id="L47">                System.out.println(&quot;Számot adj meg!&quot;);</span>
+<span class="fc" id="L48">            }</span>
+        }
+<span class="fc" id="L50">        return input;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="hu"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GameController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">wumplusz</a> &gt; <a href="index.source.html" class="el_package">hu.nye.progtech.wumplusz.service.game</a> &gt; <span class="el_source">GameController.java</span></div><h1>GameController.java</h1><pre class="source lang-java linenums">package hu.nye.progtech.wumplusz.service.game;
+
+import java.util.InputMismatchException;
+
+import hu.nye.progtech.wumplusz.model.GameStore;
+import hu.nye.progtech.wumplusz.repository.impl.JdbcGameRepository;
+import hu.nye.progtech.wumplusz.repository.impl.TxtGameRepository;
+import hu.nye.progtech.wumplusz.service.input.UserInteractionHandler;
+import hu.nye.progtech.wumplusz.service.map.MapEditor;
+
+/**
+ * Komponens, ami a játék menetét vezérli.
+ */
+
+public class GameController {
+
+    private final UserInteractionHandler interactionHandler;
+
+    private final GameStore gameStore;
+
+    private final MapEditor mapEditor;
+
+    private final TxtGameRepository txtGameRepository;
+
+    private final JdbcGameRepository jdbcGameRepository;
+
+
+    public GameController(UserInteractionHandler interactionHandler, GameStore gameStore, MapEditor mapEditor,
+<span class="fc" id="L29">                          TxtGameRepository txtGameRepository, JdbcGameRepository jdbcGameRepository) {</span>
+<span class="fc" id="L30">        this.interactionHandler = interactionHandler;</span>
+<span class="fc" id="L31">        this.gameStore = gameStore;</span>
+<span class="fc" id="L32">        this.mapEditor = mapEditor;</span>
+<span class="fc" id="L33">        this.txtGameRepository = txtGameRepository;</span>
+<span class="fc" id="L34">        this.jdbcGameRepository = jdbcGameRepository;</span>
+<span class="fc" id="L35">    }</span>
+
+    /**
+     * A játék előtti folyamatot vezérli.
+     * Ez a játékosnév bekérése.
+     */
+    public void handlePreStart() {
+<span class="fc" id="L42">        final String userName = interactionHandler.getUsername();</span>
+<span class="fc" id="L43">        gameStore.setUserName(userName);</span>
+<span class="fc" id="L44">    }</span>
+
+    /**
+     * Lekéri a kiválasztott menüpontot, átadja a feladatot az adott komponenseknek.
+     */
+    public void handleMenu() {
+<span class="fc" id="L50">        Integer chosenMenu = interactionHandler.getMenuPoint();</span>
+<span class="pc bpc" id="L51" title="1 of 7 branches missed.">        switch (chosenMenu) {</span>
+            case 1:
+<span class="fc" id="L53">                mapEditor.handleTableSize();</span>
+<span class="fc" id="L54">                mapEditor.edit();</span>
+<span class="fc" id="L55">                break;</span>
+            case 2:
+<span class="fc" id="L57">                txtGameRepository.load();</span>
+<span class="fc" id="L58">                break;</span>
+            case 3:
+<span class="fc" id="L60">                jdbcGameRepository.load();</span>
+<span class="fc" id="L61">                break;</span>
+            case 4:
+<span class="fc" id="L63">                jdbcGameRepository.save();</span>
+<span class="fc" id="L64">                break;</span>
+            case 5:
+<span class="fc" id="L66">                start();</span>
+<span class="fc" id="L67">                break;</span>
+            case 6:
+<span class="nc" id="L69">                System.exit(0);</span>
+<span class="nc" id="L70">                break;</span>
+            default:
+<span class="fc" id="L72">                System.out.println(&quot;Kérlek 1-6 közötti számot adj meg!&quot;);</span>
+<span class="fc" id="L73">                handleMenu();</span>
+                break;
+        }
+<span class="fc" id="L76">    }</span>
+
+    /**
+     * Elindítja a játékciklust.
+     */
+    public void start() {
+<span class="fc" id="L82">        System.out.println(&quot;A játék elindult&quot;);</span>
+<span class="fc" id="L83">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

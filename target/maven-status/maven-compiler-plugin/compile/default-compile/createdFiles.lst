@@ -1,0 +1,12 @@
+hu/nye/progtech/wumplusz/repository/impl/JdbcGameRepository.class
+hu/nye/progtech/wumplusz/model/GameStore.class
+hu/nye/progtech/wumplusz/service/map/MapEditor.class
+hu/nye/progtech/wumplusz/Main.class
+hu/nye/progtech/wumplusz/service/input/InputReader.class
+hu/nye/progtech/wumplusz/service/input/UserInteractionHandler.class
+hu/nye/progtech/wumplusz/service/game/GameController.class
+hu/nye/progtech/wumplusz/repository/impl/TxtGameRepository.class
+hu/nye/progtech/wumplusz/model/MapVO.class
+hu/nye/progtech/wumplusz/model/enums/Entity.class
+hu/nye/progtech/wumplusz/service/util/InstructionOutputWriter.class
+hu/nye/progtech/wumplusz/repository/GameRepository.class
