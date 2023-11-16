@@ -26,7 +26,7 @@ public class InputReader {
     public String readString() {
         String input = null;
         try {
-            input = scanner.next();
+            input = scanner.nextLine();
         } catch (NoSuchElementException | IllegalStateException e) {
             System.err.println("Hiba a beolvasás közben");
         }

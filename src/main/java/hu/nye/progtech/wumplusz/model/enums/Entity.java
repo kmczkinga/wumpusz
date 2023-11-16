@@ -4,10 +4,10 @@ package hu.nye.progtech.wumplusz.model.enums;
  * Entitás típus.
  */
 public enum Entity {
-    FAL('F'),
-    VEREM('V'),
-    WUMPUSZ('W'),
-    ARANY('A'),
+    FAL('W'),
+    VEREM('P'),
+    WUMPUSZ('U'),
+    ARANY('G'),
     HOS('H');
 
     private final Character label;
@@ -21,5 +21,14 @@ public enum Entity {
      */
     public Character getLabel() {
         return this.label;
+    }
+
+    public static Entity valueOfLabel(Character label) {
+        for (Entity e: values()) {
+            if (e.label.equals(label)) {
+                return e;
+            }
+        }
+        return null;
     }
 }

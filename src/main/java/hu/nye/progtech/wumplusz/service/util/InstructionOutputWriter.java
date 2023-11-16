@@ -30,9 +30,9 @@ public class InstructionOutputWriter {
      * Kiírja a választható entitásokat, amik a listában megtalálhatóak.
      */
     public static void printEntity(List<Entity> availableEntities) {
-        System.out.println("Válassz egy entitást a lehelyezéshez:");
+        System.out.println("Válassz egy entitást a lehelyezéshez. Kilépéshez: 'KILÉPÉS'");
         for (Entity entity : availableEntities) {
-            System.out.print(entity.name() + " ");
+            System.out.print(entity.name() + " (" + entity.getLabel() + ") ");
         }
         System.out.println();
     }
@@ -42,5 +42,9 @@ public class InstructionOutputWriter {
      */
     public static void printCoordinate(String coordinateType) {
         System.out.printf("Add meg a %s koordinátát: ", coordinateType);
+    }
+
+    public static void printGetHeroDirection() {
+        System.out.println("Adja meg a hős kezdezi irányát (N/W/S/E)");
     }
 }

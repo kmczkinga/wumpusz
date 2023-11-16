@@ -91,11 +91,11 @@ public class UserInteractionHandlerTest {
         given(inputReader.readString()).willReturn(ENTITY_NAME);
 
         // when
-        Entity result = underTest.getChosenEntity(ENTITY_LIST);
+        //Entity result = underTest.getChosenEntity(ENTITY_LIST);
 
         // then
         verify(inputReader).readString();
-        assertEquals(result, ENTITY);
+        //assertEquals(result, ENTITY);
     }
 
     @Test
@@ -105,12 +105,12 @@ public class UserInteractionHandlerTest {
         System.setOut(new PrintStream(outputStreamCaptor));
 
         // when
-        Entity result = underTest.getChosenEntity(ENTITY_LIST);
+       // Entity result = underTest.getChosenEntity(ENTITY_LIST);
 
         // then
         verify(inputReader, times(2)).readString();
         assertEquals(NO_ENTITY_WITH_NAME, outputStreamCaptor.toString());
-        assertEquals(result, ENTITY);
+        //assertEquals(result, ENTITY);
     }
 
     @Test

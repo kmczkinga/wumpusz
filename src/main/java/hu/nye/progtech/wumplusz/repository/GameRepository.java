@@ -1,5 +1,7 @@
 package hu.nye.progtech.wumplusz.repository;
 
+import hu.nye.progtech.wumplusz.model.MapVO;
+
 /**
  * Interfész, amely a játék állást menti, visszatölti.
  */
@@ -13,5 +15,5 @@ public interface GameRepository {
     /**
      * Betölti az adott játékot.
      */
-    public String load();
+    public MapVO load();
 }

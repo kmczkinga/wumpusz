@@ -1,5 +1,6 @@
 package hu.nye.progtech.wumplusz.repository.impl;
 
+import hu.nye.progtech.wumplusz.model.MapVO;
 import hu.nye.progtech.wumplusz.repository.GameRepository;
 
 /**
@@ -19,7 +20,7 @@ public class JdbcGameRepository implements GameRepository {
      * Betölti az adott játékot.
      */
     @Override
-    public String load() {
+    public MapVO load() {
         return null;
     }
 }

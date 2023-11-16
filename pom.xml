@@ -75,6 +75,7 @@
                         <exclude>hu/nye/progtech/wumplusz/model/*</exclude>
                         <exclude>hu/nye/progtech/wumplusz/model/enums/*</exclude>
                         <exclude>hu/nye/progtech/wumplusz/Main.*</exclude>
+                        <exclude>hu/nye/progtech/wumplusz/service/throwable/*</exclude>
                     </excludes>
                 </configuration>
                 <executions>

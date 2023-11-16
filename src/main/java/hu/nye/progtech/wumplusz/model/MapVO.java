@@ -1,6 +1,7 @@
 package hu.nye.progtech.wumplusz.model;
 
 import hu.nye.progtech.wumplusz.model.enums.Entity;
+import hu.nye.progtech.wumplusz.model.enums.HeroDirection;
 
 
 /**
@@ -11,12 +12,21 @@ public class MapVO {
 
     private final Integer size;
 
+    private HeroDirection heroDirection;
+
     private Character[][] map;
 
     public MapVO(Integer size) {
         this.size = size;
         this.map = new Character[size][size];
         createStartingMap();
+    }
+
+    public MapVO(Integer size, String heroColumn, Integer heroRow, String heroDirection, Character[][] map){
+        this.size = size;
+        this.map = map;
+        this.heroDirection = HeroDirection.valueOf(heroDirection);
+        placeHero(heroColumn, heroRow);
     }
 
     /**
@@ -40,11 +50,34 @@ public class MapVO {
         return coordinate >= 0 && coordinate <= size - 1;
     }
 
+    public Boolean isFull () {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (map[i][j] == ' ') {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     /**
      * Visszaadja a pálya méretét.
      */
     public Integer getSize() {
         return this.size;
+    }
+
+    public HeroDirection getHeroDirection() {
+        return heroDirection;
+    }
+
+    public void setHeroDirection(HeroDirection heroDirection) {
+        this.heroDirection = heroDirection;
+    }
+
+    public Character getEntity(int x, int y) {
+        return map[x][y];
     }
 
 
@@ -96,5 +129,13 @@ public class MapVO {
                 }
             }
         }
+    }
+
+    /**
+        Az ASCII táblázat alapján alakítjuk át a betűt számmá.
+     */
+    private void placeHero(String columnString, Integer row) {
+        Integer column = columnString.charAt(0) - 'A';
+        this.map[row][column] = 'H';
     }
 }

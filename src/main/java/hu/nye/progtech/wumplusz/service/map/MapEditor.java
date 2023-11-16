@@ -6,8 +6,10 @@ import java.util.List;
 import hu.nye.progtech.wumplusz.model.GameStore;
 import hu.nye.progtech.wumplusz.model.MapVO;
 import hu.nye.progtech.wumplusz.model.enums.Entity;
+import hu.nye.progtech.wumplusz.model.enums.HeroDirection;
 import hu.nye.progtech.wumplusz.service.input.InputReader;
 import hu.nye.progtech.wumplusz.service.input.UserInteractionHandler;
+import hu.nye.progtech.wumplusz.service.throwable.ExitChoiceThrowable;
 import hu.nye.progtech.wumplusz.service.util.InstructionOutputWriter;
 
 /**
@@ -44,27 +46,35 @@ public class MapEditor {
      */
     public void edit() {
         MapVO mapVO = gameStore.getMapVO();
-        gameStore.setAvailableEntities(createAvailableEntityList(mapVO.getSize()));
-        Entity chosenEntity;
+        Entity chosenEntity = null;
         Integer x;
         Integer y;
         List<Entity> availableEntities;
         do {
             availableEntities = gameStore.getAvailableEntities();
-            chosenEntity = interactionHandler.getChosenEntity(availableEntities);
+            try {
+                chosenEntity = interactionHandler.getChosenEntity(availableEntities);
+            } catch (ExitChoiceThrowable e) {
+                break;
+            }
+
             x = interactionHandler.getCoordinate(mapVO, InstructionOutputWriter.X_COORDINATE);
             y = interactionHandler.getCoordinate(mapVO, InstructionOutputWriter.Y_COORDINATE);
             if (mapVO.isEntityPlaceable(chosenEntity.getLabel(), x, y)) {
-                mapVO.addEntity(chosenEntity, x, y);
+                mapVO.addEntity(chosenEntity, y, x);
                 if (!Entity.FAL.equals(chosenEntity) && !Entity.VEREM.equals(chosenEntity)) {
                      gameStore.removeEntity(chosenEntity.name());
+                }
+                if (Entity.HOS.equals(chosenEntity)) {
+                    HeroDirection heroDirection = interactionHandler.getHeroDirection();
+                    gameStore.getMapVO().setHeroDirection(heroDirection);
                 }
             } else {
                 System.out.println("Nem tehető ide ez az entitás, próbáld máshová!");
             }
             System.out.println(gameStore.getMapVO().toString());
 
-        } while (availableEntities.size() > 2 && availableEntities.contains(Entity.VEREM) && availableEntities.contains(Entity.FAL));
+        } while (true || !mapVO.isFull());
     }
 
     /**
@@ -95,15 +105,15 @@ public class MapEditor {
      */
     public List<Entity> createAvailableEntityList(Integer mapSize) {
         List<Entity> result = new ArrayList<>();
-        Integer wumpusCount = 0;
+        Integer wumpuszCount = 0;
         if (mapSize <= 8) {
-            wumpusCount = 1;
+            wumpuszCount = 1;
         } else if (mapSize >= 9 && mapSize <= 14) {
-            wumpusCount = 2;
+            wumpuszCount = 2;
         } else {
-            wumpusCount = 3;
+            wumpuszCount = 3;
         }
-        for (int i = 0; i < wumpusCount; i++) {
+        for (int i = 0; i < wumpuszCount; i++) {
             result.add(Entity.WUMPUSZ);
         }
         result.add(Entity.ARANY);
