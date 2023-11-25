@@ -26,14 +26,17 @@ public class GameController {
 
     private final JdbcGameRepository jdbcGameRepository;
 
+    private final GamePlayController gamePlayController;
+
 
     public GameController(UserInteractionHandler interactionHandler, GameStore gameStore, MapEditor mapEditor,
-                          TxtGameRepository txtGameRepository, JdbcGameRepository jdbcGameRepository) {
+                          TxtGameRepository txtGameRepository, JdbcGameRepository jdbcGameRepository, GamePlayController gamePlayController) {
         this.interactionHandler = interactionHandler;
         this.gameStore = gameStore;
         this.mapEditor = mapEditor;
         this.txtGameRepository = txtGameRepository;
         this.jdbcGameRepository = jdbcGameRepository;
+        this.gamePlayController = gamePlayController;
     }
 
     /**
@@ -43,6 +46,7 @@ public class GameController {
     public void handlePreStart() {
         final String userName = interactionHandler.getUsername();
         gameStore.setUserName(userName);
+        gameStore.setWinCount(0);
     }
 
     /**
@@ -86,7 +90,8 @@ public class GameController {
                 handleMenu();
                 break;
             case 5:
-                start();
+                gamePlayController.start();
+                handleMenu();
                 break;
             case 6:
                 System.exit(0);
@@ -96,12 +101,5 @@ public class GameController {
                 handleMenu();
                 break;
         }
-    }
-
-    /**
-     * Elindítja a játékciklust.
-     */
-    public void start() {
-        System.out.println("A játék elindult");
     }
 }

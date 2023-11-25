@@ -1,8 +1,21 @@
 package hu.nye.progtech.wumplusz.model.enums;
 
 public enum HeroDirection {
-    N,
-    W,
-    S,
-    E
+    N ("észak"),
+    W ("nyugat"),
+    S ("dél"),
+    E ("kelet");
+
+    private final String label;
+
+    private HeroDirection(String label) {
+        this.label = label;
+    }
+
+    /**
+     * Visszaadja az hős irány címkéjét.
+     */
+    public String getLabel() {
+        return this.label;
+    }
 }

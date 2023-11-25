@@ -12,7 +12,7 @@ public class MapVO {
 
     private final Integer size;
 
-    private HeroDirection heroDirection;
+    private Hero hero;
 
     private Character[][] map;
 
@@ -25,8 +25,8 @@ public class MapVO {
     public MapVO(Integer size, String heroColumn, Integer heroRow, String heroDirection, Character[][] map){
         this.size = size;
         this.map = map;
-        this.heroDirection = HeroDirection.valueOf(heroDirection);
-        placeHero(heroColumn, heroRow);
+        this.hero = new Hero(HeroDirection.valueOf(heroDirection), heroRow, columnStringToInt(heroColumn), false);
+        placeHeroWithString(heroColumn, heroRow);
     }
 
     /**
@@ -41,6 +41,10 @@ public class MapVO {
      */
     public Boolean isEntityPlaceable(Character entityLabel, Integer i, Integer j) {
         return map[i][j] == entityLabel || map[i][j] == ' ';
+    }
+
+    public Character getEntity(int x, int y) {
+        return map[y][x];
     }
 
     /**
@@ -61,6 +65,18 @@ public class MapVO {
         return true;
     }
 
+    public void setStartingArrowCount() {
+        Integer wumpusCount = 0;
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (getEntity(i, j).equals('U')) {
+                    wumpusCount++;
+                }
+            }
+        }
+        this.hero.setArrowCount(wumpusCount);
+    }
+
     /**
      * Visszaadja a pálya méretét.
      */
@@ -68,16 +84,17 @@ public class MapVO {
         return this.size;
     }
 
-    public HeroDirection getHeroDirection() {
-        return heroDirection;
+
+    public void deleteEntity(Integer column, Integer row) {
+        this.map[row][column] = '_';
     }
 
-    public void setHeroDirection(HeroDirection heroDirection) {
-        this.heroDirection = heroDirection;
+    public Hero getHero() {
+        return hero;
     }
 
-    public Character getEntity(int x, int y) {
-        return map[x][y];
+    public void setHero(Hero hero) {
+        this.hero = hero;
     }
 
 
@@ -134,8 +151,18 @@ public class MapVO {
     /**
         Az ASCII táblázat alapján alakítjuk át a betűt számmá.
      */
-    private void placeHero(String columnString, Integer row) {
-        Integer column = columnString.charAt(0) - 'A';
+    public void placeHeroWithString(String columnString, Integer row) {
+        Integer column = columnStringToInt(columnString);
+        placeHero(column, row);
+    }
+
+    private Integer columnStringToInt(String columnString) {
+        return columnString.charAt(0) - 'A';
+    }
+
+    public void placeHero(Integer column, Integer row) {
         this.map[row][column] = 'H';
+        this.hero.setHeroRow(row);
+        this.hero.setHeroColumn(column);
     }
 }

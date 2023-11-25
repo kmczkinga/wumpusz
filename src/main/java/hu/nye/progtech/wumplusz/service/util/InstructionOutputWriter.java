@@ -3,6 +3,7 @@ package hu.nye.progtech.wumplusz.service.util;
 import java.util.List;
 
 import hu.nye.progtech.wumplusz.model.enums.Entity;
+import hu.nye.progtech.wumplusz.model.enums.GamePlayInstructions;
 
 /**
  * Util osztály, amely az interakció előtti utasítások kiíratásáért felelős.
@@ -46,5 +47,12 @@ public class InstructionOutputWriter {
 
     public static void printGetHeroDirection() {
         System.out.println("Adja meg a hős kezdezi irányát (N/W/S/E)");
+    }
+
+    public static void printGamePlayChoices(List<GamePlayInstructions> gamePlayInstructionsList) {
+        System.out.println("Válasz egy akciót:");
+        for (GamePlayInstructions gamePlayInstructions : gamePlayInstructionsList) {
+            System.out.print(gamePlayInstructions + " ");
+        }
     }
 }

@@ -37,6 +37,8 @@ public class GameControllerTest {
 
     private JdbcGameRepository jdbcGameRepository;
 
+    private GamePlayController gamePlayController;
+
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
     @BeforeEach
@@ -46,7 +48,8 @@ public class GameControllerTest {
         mapEditor = Mockito.mock(MapEditor.class);
         txtGameRepository = Mockito.mock(TxtGameRepository.class);
         jdbcGameRepository = Mockito.mock(JdbcGameRepository.class);
-        underTest = new GameController(interactionHandler, gameStore, mapEditor, txtGameRepository, jdbcGameRepository);
+        gamePlayController = Mockito.mock(GamePlayController.class);
+        underTest = new GameController(interactionHandler, gameStore, mapEditor, txtGameRepository, jdbcGameRepository, gamePlayController);
     }
 
     @Test
@@ -121,6 +124,7 @@ public class GameControllerTest {
         underTest.handleMenu();
 
         // then
+        verify(gamePlayController).start();
         assertEquals(GAME_STARTED, outputStreamCaptor.toString());
     }
 
@@ -136,16 +140,5 @@ public class GameControllerTest {
         // then
         verify(mapEditor).edit();
         assertEquals(NUMBER_BETWEEN_MESSAGE, outputStreamCaptor.toString());
-    }
-
-    @Test
-    public void testStartShouldStartGameLoop() {
-        // given
-        System.setOut(new PrintStream(outputStreamCaptor));
-        // when
-        underTest.start();
-
-        // then
-        assertEquals(GAME_STARTED, outputStreamCaptor.toString());
     }
 }

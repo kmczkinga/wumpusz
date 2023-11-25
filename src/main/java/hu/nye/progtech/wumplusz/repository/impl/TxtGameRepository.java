@@ -68,7 +68,7 @@ public class TxtGameRepository implements GameRepository {
 
         scanner.close();
         System.out.println("Sikeres beolvasás!");
-        return new MapVO(mapSize, column, row, heroDirection, map);
+        return new MapVO(mapSize, column, row - 1, heroDirection, map);
     }
 
     private Scanner getScanner() {

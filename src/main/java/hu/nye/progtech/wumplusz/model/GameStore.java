@@ -13,6 +13,8 @@ public class GameStore {
 
     private String userName;
 
+    private Integer winCount;
+
     private MapVO mapVO;
 
     private List<Entity> availableEntities;
@@ -69,6 +71,18 @@ public class GameStore {
      */
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getUserName() {
+        return this.userName;
+    }
+
+    public Integer getWinCount() {
+        return winCount;
+    }
+
+    public void setWinCount(Integer winCount) {
+        this.winCount = winCount;
     }
 
     /**

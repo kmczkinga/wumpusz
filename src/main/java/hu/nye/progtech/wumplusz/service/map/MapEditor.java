@@ -67,7 +67,7 @@ public class MapEditor {
                 }
                 if (Entity.HOS.equals(chosenEntity)) {
                     HeroDirection heroDirection = interactionHandler.getHeroDirection();
-                    gameStore.getMapVO().setHeroDirection(heroDirection);
+                    gameStore.getMapVO().getHero().setHeroDirection(heroDirection);
                 }
             } else {
                 System.out.println("Nem tehető ide ez az entitás, próbáld máshová!");

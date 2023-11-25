@@ -6,6 +6,8 @@ import hu.nye.progtech.wumplusz.model.GameStore;
 import hu.nye.progtech.wumplusz.repository.impl.JdbcGameRepository;
 import hu.nye.progtech.wumplusz.repository.impl.TxtGameRepository;
 import hu.nye.progtech.wumplusz.service.game.GameController;
+import hu.nye.progtech.wumplusz.service.game.GamePlayController;
+import hu.nye.progtech.wumplusz.service.game.GamePlayStepController;
 import hu.nye.progtech.wumplusz.service.input.InputReader;
 import hu.nye.progtech.wumplusz.service.input.UserInteractionHandler;
 import hu.nye.progtech.wumplusz.service.map.MapEditor;
@@ -21,14 +23,16 @@ public class Main {
      * @param args parancssori argumentumok
      */
     public static void main(String[] args) {
-        final InputReader inputReader = new InputReader(new Scanner(System.in));
-        final UserInteractionHandler interactionHandler = new UserInteractionHandler(inputReader);
-        final GameStore gameStore = new GameStore();
-        final MapEditor mapEditor = new MapEditor(inputReader, gameStore, interactionHandler);
-        final TxtGameRepository txtGameRepository = new TxtGameRepository();
-        final JdbcGameRepository jdbcGameRepository = new JdbcGameRepository();
-        final GameController gameController = new GameController(interactionHandler, gameStore, mapEditor,
-                txtGameRepository, jdbcGameRepository);
+        InputReader inputReader = new InputReader(new Scanner(System.in));
+        UserInteractionHandler interactionHandler = new UserInteractionHandler(inputReader);
+        GameStore gameStore = new GameStore();
+        MapEditor mapEditor = new MapEditor(inputReader, gameStore, interactionHandler);
+        TxtGameRepository txtGameRepository = new TxtGameRepository();
+        JdbcGameRepository jdbcGameRepository = new JdbcGameRepository();
+        GamePlayStepController gamePlayStepController = new GamePlayStepController();
+        GamePlayController gamePlayController = new GamePlayController(gameStore, interactionHandler, gamePlayStepController);
+        GameController gameController = new GameController(interactionHandler, gameStore, mapEditor,
+                txtGameRepository, jdbcGameRepository, gamePlayController);
         gameController.handlePreStart();
         gameController.handleMenu();
     }
