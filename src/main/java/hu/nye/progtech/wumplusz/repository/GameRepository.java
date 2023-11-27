@@ -6,15 +6,15 @@ import hu.nye.progtech.wumplusz.service.throwable.NoNameThrowable;
 /**
  * Interfész, amely a játék állást menti, visszatölti.
  */
-public interface GameRepository <T> {
+public interface GameRepository<T> {
 
     /**
      * Elmenti az adott játékot.
      */
-    public void save();
+    void save();
 
     /**
      * Betölti az adott játékot.
      */
-    public T load(String username)  throws NoNameThrowable;
+    T load(String username)  throws NoNameThrowable;
 }

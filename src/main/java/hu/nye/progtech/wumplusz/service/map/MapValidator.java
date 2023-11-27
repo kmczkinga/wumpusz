@@ -2,16 +2,32 @@ package hu.nye.progtech.wumplusz.service.map;
 
 import hu.nye.progtech.wumplusz.model.MapVO;
 
+/**
+ * Komponens, amely a pálya helyességét ellenőrzi.
+ */
 public class MapValidator {
 
+    /**
+     * Megnézi, hogy a pálya helyes-e.
+     */
     public static Boolean isValid(MapVO mapVO) {
         return isSizeValid(mapVO) && isEntityCountValid(mapVO);
     }
 
+     /**
+     * A pálya méretét ellenőrzi le.
+     * 6 és 20 között.
+     */
      private static Boolean isSizeValid(MapVO mapVO) {
         return mapVO.getSize() >= 6 && mapVO.getSize() <= 20;
     }
 
+    /**
+     * Megnézi, hogy az
+     * - arany szám = 1,
+     * - a hős szám = 1,
+     * - wumpusz szám megegyezik-e a pálya méretével.
+     */
     private static Boolean isEntityCountValid(MapVO mapVO) {
         Integer wumpusCount = 0;
         Integer goldCount = 0;
@@ -22,7 +38,7 @@ public class MapValidator {
                     wumpusCount++;
                 } else if (mapVO.getEntity(i, j).equals('G')) {
                     goldCount++;
-                }else if (mapVO.getEntity(i, j).equals('H')) {
+                } else if (mapVO.getEntity(i, j).equals('H')) {
                     heroCount++;
                 }
             }

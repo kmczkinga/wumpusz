@@ -1,5 +1,9 @@
 package hu.nye.progtech.wumplusz.model;
 
+/**
+ * VO, amely a user adatait tárolja.
+ * Ezek a neve, nyeréseinek száma.
+ */
 public class UserData {
 
     private String username;
@@ -11,18 +15,23 @@ public class UserData {
         this.wins = wins;
     }
 
+    /**
+     * Visszaadja a nevét.
+     */
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
+    /**
+     * Visszaadja a nyeréseinek számát.
+     */
     public Integer getWins() {
         return wins;
     }
 
+    /**
+     * Beállítja a nyeréseinek számát.
+     */
     public void setWins(Integer wins) {
         this.wins = wins;
     }

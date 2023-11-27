@@ -22,7 +22,6 @@ public class InputReader {
      *
      * @return a felhasználó neve Stringként.
      */
-
     public String readString() {
         String input = null;
         try {

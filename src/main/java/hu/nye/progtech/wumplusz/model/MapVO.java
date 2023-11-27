@@ -22,7 +22,7 @@ public class MapVO {
         createStartingMap();
     }
 
-    public MapVO(Integer size, String heroColumn, Integer heroRow, String heroDirection, Character[][] map){
+    public MapVO(Integer size, String heroColumn, Integer heroRow, String heroDirection, Character[][] map) {
         this.size = size;
         this.map = map;
         this.hero = new Hero(HeroDirection.valueOf(heroDirection), heroRow, columnStringToInt(heroColumn), false);
@@ -43,6 +43,9 @@ public class MapVO {
         return map[i][j] == entityLabel || map[i][j] == ' ';
     }
 
+    /**
+     * Visszaadja az entitást az adott koordinátáról.
+     */
     public Character getEntity(int x, int y) {
         return map[y][x];
     }
@@ -54,7 +57,10 @@ public class MapVO {
         return coordinate >= 0 && coordinate <= size - 1;
     }
 
-    public Boolean isFull () {
+    /**
+     * Megnézi, hogy a pálya tele van-e.
+     */
+    public Boolean isFull() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 if (map[i][j] == ' ') {
@@ -65,6 +71,9 @@ public class MapVO {
         return true;
     }
 
+    /**
+     * Beállítja a hős kezdő nyilainak számát a wumpusz számok alapján.
+     */
     public void setStartingArrowCount() {
         Integer wumpusCount = 0;
         for (int i = 0; i < size; i++) {
@@ -84,19 +93,19 @@ public class MapVO {
         return this.size;
     }
 
-
+    /**
+     * Kitörli az entitást az adott koordinátáról.
+     */
     public void deleteEntity(Integer column, Integer row) {
         this.map[row][column] = '_';
     }
 
+    /**
+     * Visszaadja a hőst.
+     */
     public Hero getHero() {
         return hero;
     }
-
-    public void setHero(Hero hero) {
-        this.hero = hero;
-    }
-
 
     /**
      * A pálya kiíratásához használatos.
@@ -149,17 +158,23 @@ public class MapVO {
     }
 
     /**
-        Az ASCII táblázat alapján alakítjuk át a betűt számmá.
+        Betű oszlop alapján leteszi a hőst.
      */
     public void placeHeroWithString(String columnString, Integer row) {
         Integer column = columnStringToInt(columnString);
         placeHero(column, row);
     }
 
+    /**
+     * Az ASCII táblázat alapján átalakítja a betű koordinátát számmá.
+     */
     private Integer columnStringToInt(String columnString) {
         return columnString.charAt(0) - 'A';
     }
 
+    /**
+     * Leteszi a hőst.
+     */
     public void placeHero(Integer column, Integer row) {
         this.map[row][column] = 'H';
         this.hero.setHeroRow(row);

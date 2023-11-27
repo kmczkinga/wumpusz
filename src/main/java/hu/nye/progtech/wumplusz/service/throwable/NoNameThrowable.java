@@ -1,5 +1,8 @@
 package hu.nye.progtech.wumplusz.service.throwable;
 
+/**
+ * Throwable, ami a nem létező játékost jelzi.
+ */
 public class NoNameThrowable extends Throwable {
     /**
      * Constructs a new throwable with {@code null} as its detail message.

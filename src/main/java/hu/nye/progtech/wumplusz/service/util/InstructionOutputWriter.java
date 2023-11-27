@@ -50,10 +50,16 @@ public class InstructionOutputWriter {
         System.out.printf("Add meg a %s koordinátát: ", coordinateType);
     }
 
+    /**
+     * Kiírja, hogy milyen hős irányt választhatunk.
+     */
     public static void printGetHeroDirection() {
         System.out.println("Adja meg a hős kezdezi irányát (N/W/S/E)");
     }
 
+    /**
+     * Kiírja a lehetséges akciókat.
+     */
     public static void printGamePlayChoices(List<GamePlayInstructions> gamePlayInstructionsList) {
         System.out.println("Válasz egy akciót:");
         for (GamePlayInstructions gamePlayInstructions : gamePlayInstructionsList) {
@@ -61,15 +67,14 @@ public class InstructionOutputWriter {
         }
     }
 
-    public static void printLoadUsername() {
-        System.out.println("Adj meg egy nevet, amit be szerentél tölteni!");
-    }
-
+    /**
+     * Kiírja a highscore-t.
+     */
     public static void printHighScore(List<UserData> userDatas) {
         System.out.println("Highscore: ");
         List<UserData> sorted =
                 userDatas.stream().sorted(Comparator.comparing(UserData::getWins)).collect(Collectors.toList());
-        for(int i = sorted.size() - 1; i >= 0; i--) {
+        for (int i = sorted.size() - 1; i >= 0; i--) {
             System.out.println(sorted.get(i).getUsername() + ": " + sorted.get(i).getWins() + " nyerés");
         }
         System.out.println();

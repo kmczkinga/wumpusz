@@ -1,10 +1,13 @@
 package hu.nye.progtech.wumplusz.model.enums;
 
+/**
+ * A hős irányának típusa.
+ */
 public enum HeroDirection {
-    N ("észak"),
-    W ("nyugat"),
-    S ("dél"),
-    E ("kelet");
+    N("észak"),
+    W("nyugat"),
+    S("dél"),
+    E("kelet");
 
     private final String label;
 

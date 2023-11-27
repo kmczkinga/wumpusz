@@ -12,7 +12,7 @@ import hu.nye.progtech.wumplusz.service.throwable.NoNameThrowable;
 /**
  * Komponens, amely betölti, elmenti a játékot txt fájlba.
  */
-public class TxtGameRepository implements GameRepository <MapVO> {
+public class TxtGameRepository implements GameRepository<MapVO> {
 
     private static final String FILE_NAME = "wumpluszinput.txt";
 
@@ -22,6 +22,7 @@ public class TxtGameRepository implements GameRepository <MapVO> {
 
     /**
      * Elmenti az adott játékot.
+     * Ezt nem használjuk.
      */
     @Override
     public void save() {
@@ -36,6 +37,16 @@ public class TxtGameRepository implements GameRepository <MapVO> {
         return readFile();
     }
 
+    /**
+     * Beolvassa az adott txt fájlt.
+     * Végigiterál a fájl sorain.
+     * Az első sorból kiszedi a pálya méretét,
+     * hős oszlopát, sorát, irányát.
+     * A többi sor a pályát írja le.
+     *
+     * Ha nem tudja jól beolvasni, leállítja a programot.
+     * Ha sikeres, visszaadja a MapVO-t és kiírja, hogy sikeres.
+     */
     private MapVO readFile() {
         Integer mapSize = null;
         String column = null;
@@ -57,7 +68,7 @@ public class TxtGameRepository implements GameRepository <MapVO> {
                 } else {
                     currentRow = scanner.nextLine();
                     for (int j = 0; j < mapSize; j++) {
-                        map[i-1][j] = currentRow.charAt(j);
+                        map[i - 1][j] = currentRow.charAt(j);
                     }
                 }
                 i++;
@@ -72,6 +83,11 @@ public class TxtGameRepository implements GameRepository <MapVO> {
         return new MapVO(mapSize, column, row - 1, heroDirection, map);
     }
 
+    /**
+     * Megnyitja a fájlt egy Scanner-rel.
+     *
+     * Ha nem létezik, nem találja a fájlt, leállítja a programot.
+     */
     private Scanner getScanner() {
         inputStream = this.getClass().getClassLoader().getResourceAsStream(FILE_NAME);
         if (inputStream == null) {

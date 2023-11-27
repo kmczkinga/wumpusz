@@ -34,7 +34,8 @@ public class GameController {
 
 
     public GameController(UserInteractionHandler interactionHandler, GameStore gameStore, MapEditor mapEditor,
-                          TxtGameRepository txtGameRepository, JdbcGameRepository jdbcGameRepository, GamePlayController gamePlayController) {
+                          TxtGameRepository txtGameRepository, JdbcGameRepository
+                                  jdbcGameRepository, GamePlayController gamePlayController) {
         this.interactionHandler = interactionHandler;
         this.gameStore = gameStore;
         this.mapEditor = mapEditor;

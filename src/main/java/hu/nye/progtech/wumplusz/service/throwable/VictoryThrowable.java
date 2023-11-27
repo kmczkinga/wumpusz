@@ -1,5 +1,8 @@
 package hu.nye.progtech.wumplusz.service.throwable;
 
+/**
+ * Throwable, amely a játékbeli győzelmet jelzi.
+ */
 public class VictoryThrowable extends Throwable {
     /**
      * Constructs a new throwable with {@code null} as its detail message.

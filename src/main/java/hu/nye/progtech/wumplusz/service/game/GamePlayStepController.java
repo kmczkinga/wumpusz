@@ -5,8 +5,20 @@ import hu.nye.progtech.wumplusz.model.enums.HeroDirection;
 import hu.nye.progtech.wumplusz.service.throwable.DeathThrowable;
 import hu.nye.progtech.wumplusz.service.throwable.VictoryThrowable;
 
+/**
+ * Komponens, amely elvégzi a játékbeli lépéseket.
+ */
 public class GamePlayStepController {
 
+    /**
+     * Egy játékos lépést végez el.
+     * Bekéri a hős sorát, oszlopát.
+     * Ha elvégezhető a lépés, akkor kitörli az adott entitást az adott helyről.
+     * Majd a hős irányának megfelelően arrébbteszi a hőst.
+     * Ha a lépésben a kezdő pozícióra tér vissza, dob egy VictoryThrowablet.
+     * Ha a lépésben meghal, dob egy DeathThrowable-t.
+     * Ha sikeres a lépés, visszaadja a módosított MapVO-t.
+     */
     public MapVO step(MapVO mapVO) throws DeathThrowable, VictoryThrowable {
         Integer heroRow = mapVO.getHero().getHeroRow();
         Integer heroColumn = mapVO.getHero().getHeroColumn();
@@ -25,6 +37,8 @@ public class GamePlayStepController {
                 case W:
                     heroColumn--;
                     break;
+                default:
+                    break;
             }
             mapVO.placeHero(heroColumn, heroRow);
             if (mapVO.getHero().isInStart() && mapVO.getHero().getHasGold()) {
@@ -34,6 +48,9 @@ public class GamePlayStepController {
         return mapVO;
     }
 
+    /**
+     * Jobbra forgarja a hőst a megfelelő irányoktól jobbra lévő irányba.
+     */
     public void turnRight(MapVO mapVO) {
         HeroDirection heroDirection = mapVO.getHero().getHeroDirection();
         switch (heroDirection) {
@@ -49,9 +66,14 @@ public class GamePlayStepController {
             case W:
                 mapVO.getHero().setHeroDirection(HeroDirection.N);
                 break;
+            default:
+                break;
         }
     }
 
+    /**
+     * Balra fordítja a hőst az adott irány balra megfelelő irányba.
+     */
     public void turnLeft(MapVO mapVO) {
         HeroDirection heroDirection = mapVO.getHero().getHeroDirection();
         switch (heroDirection) {
@@ -67,9 +89,20 @@ public class GamePlayStepController {
             case W:
                 mapVO.getHero().setHeroDirection(HeroDirection.S);
                 break;
+            default:
+                break;
         }
     }
 
+    /**
+     * Elvégzi a lövést.
+     * Ellenőrzi, hogy van-e nyila a hősnek.
+     * Majd ciklikusan arrébbteszi a nyilat
+     * (nem teszi le, csak a koordinátái változnak).
+     * Ha épp falon áll a nyíl, elvesz egy nyilat.
+     * Ha wumpuszon áll a nyíl, megöli azt.
+     * Ha semmin nem áll, arrébbteszi a következő helyre.
+     */
     public void shoot(MapVO mapVO) {
         if (mapVO.getHero().getArrowCount() == 0) {
             System.out.println("Elfogytak a nyilaid!\n");
@@ -87,7 +120,7 @@ public class GamePlayStepController {
                 return;
             } else if (ch == 'U') {
                 mapVO.getHero().decreaseArrowCount();
-                mapVO.deleteEntity(x,y);
+                mapVO.deleteEntity(x, y);
                 System.out.println("Eltaláltál egy wumpuszt!\n");
                 return;
             }
@@ -104,10 +137,20 @@ public class GamePlayStepController {
                 case W:
                     x--;
                     break;
+                default:
+                    break;
             }
         }
     }
 
+    /**
+     * Elvégzi az arany felvevést.
+     * Ezt a hős megfelelő irányától
+     * 1 koordinátával arrébb ellenőrzi.
+     * Ha talált aranyat, felveszi azt,
+     * ha nem, akkor nem.
+     * Ezeket ki is írja a usernek.
+     */
     public void pickUp(MapVO mapVO) {
         Integer x = mapVO.getHero().getHeroColumn();
         Integer y = mapVO.getHero().getHeroRow();
@@ -133,6 +176,8 @@ public class GamePlayStepController {
                     hasGold = true;
                 }
                 break;
+            default:
+                break;
         }
         if (hasGold) {
             mapVO.getHero().setHasGold(true);
@@ -143,6 +188,14 @@ public class GamePlayStepController {
         }
     }
 
+    /**
+     * Egy lépést ellenőriz le, hogy elvégezhető-e.
+     * A különböző irányokat figyelembe véve.
+     * Ha falat, vermet, wumpuszt, aranyat talál, jelzi.
+     * Falnál semmi nem történik, veremben csökkenti a nyilak számát,
+     * wumpusznál dob egy DeathThrowablet,
+     * aranynál csak jelzi azt.
+     */
     private Boolean checkStep(MapVO mapVO) throws DeathThrowable {
         Character ch = Character.MIN_VALUE;
         Integer x = mapVO.getHero().getHeroColumn();
@@ -158,7 +211,9 @@ public class GamePlayStepController {
                 ch = mapVO.getEntity(x, y + 1);
                 break;
             case W:
-                ch = mapVO.getEntity(x - 1, y );
+                ch = mapVO.getEntity(x - 1, y);
+                break;
+            default:
                 break;
         }
         switch (ch) {
@@ -169,7 +224,7 @@ public class GamePlayStepController {
                 System.out.println("Verembe léptél! Elvesztettél egy nyilat!\n");
                 mapVO.getHero().decreaseArrowCount();
                 return false;
-            case 'U' :
+            case 'U':
                 System.out.print("Wumpusszal találkoztál! ");
                 throw new DeathThrowable();
             case 'G':

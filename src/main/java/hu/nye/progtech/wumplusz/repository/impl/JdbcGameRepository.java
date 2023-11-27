@@ -1,11 +1,14 @@
 package hu.nye.progtech.wumplusz.repository.impl;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import hu.nye.progtech.wumplusz.model.GameStore;
-import hu.nye.progtech.wumplusz.model.MapVO;
 import hu.nye.progtech.wumplusz.model.UserData;
 import hu.nye.progtech.wumplusz.repository.GameRepository;
 import hu.nye.progtech.wumplusz.service.throwable.NoNameThrowable;
@@ -31,7 +34,8 @@ public class JdbcGameRepository implements GameRepository<UserData> {
     }
 
     /**
-     * Elmenti az adott játékot.
+     * Elmenti az adott  játékost adatbázisba.
+     * Mielőtt elmenti, előtte törli az előző mentését a játékosnak.
      */
     @Override
     public void save() {
@@ -45,11 +49,11 @@ public class JdbcGameRepository implements GameRepository<UserData> {
     }
 
     /**
-     * Betölti az adott játékot.
+     * Betölti adatbázisból az adott usert.
      */
     @Override
     public UserData load(String username) throws NoNameThrowable {
-        try(PreparedStatement preparedStatement = connection.prepareStatement(SELECT_STATEMENT)
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_STATEMENT)
             ) {
             preparedStatement.setString(1, gameStore.getUserData().getUsername());
             preparedStatement.executeQuery();
@@ -67,9 +71,12 @@ public class JdbcGameRepository implements GameRepository<UserData> {
         }
     }
 
+    /**
+     * Beolvassa az összes user-t az adatbázisból.
+     */
     public List<UserData> readAllUsers() {
         List<UserData> result = new ArrayList<>();
-        try(Statement statement = connection.createStatement();
+        try (Statement statement = connection.createStatement();
         ResultSet rs = statement.executeQuery(SELECT_ALL_STATEMENT)) {
             UserData userData;
             while (rs.next()) {
@@ -82,6 +89,9 @@ public class JdbcGameRepository implements GameRepository<UserData> {
         return result;
     }
 
+    /**
+     * Törli az jelenlegi játékos adatait az adatbázisból..
+     */
     private void deleteCurrentSave() throws SQLException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE_STATEMENT)) {
             preparedStatement.setString(1, gameStore.getUserData().getUsername());
@@ -89,6 +99,9 @@ public class JdbcGameRepository implements GameRepository<UserData> {
         }
     }
 
+    /**
+     * Elmenti a jelenlegi játékos adatait az adatbázisba.
+     */
     private void insertNewSave() throws SQLException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_STATEMENT)) {
             preparedStatement.setString(1, gameStore.getUserData().getUsername());

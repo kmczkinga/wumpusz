@@ -79,6 +79,9 @@ public class UserInteractionHandler {
         return coordinate;
     }
 
+    /**
+     * Bekéri a hős következő irányát.
+     */
     public HeroDirection getHeroDirection() {
         InstructionOutputWriter.printGetHeroDirection();
         String input = inputReader.readString();
@@ -95,6 +98,11 @@ public class UserInteractionHandler {
         }
     }
 
+    /**
+     * Bekéri a következő játékbeli lépést.
+     * Ha felad, akkor dob egy ExitChoiceThrowablet.
+     * Ha nem létezik, jelzi azt.
+     */
     public GamePlayInstructions getChosenGamePlayInstruction(List<GamePlayInstructions> gamePlayInstructions) throws ExitChoiceThrowable {
         InstructionOutputWriter.printGamePlayChoices(gamePlayInstructions);
         String gamePlayInstructionChoice = inputReader.readString();
@@ -114,10 +122,5 @@ public class UserInteractionHandler {
             return getChosenGamePlayInstruction(gamePlayInstructions);
         }
         return result;
-    }
-
-    public String handleLoadUsername() {
-        InstructionOutputWriter.printLoadUsername();
-        return inputReader.readString();
     }
 }

@@ -1,5 +1,8 @@
 package hu.nye.progtech.wumplusz.service.throwable;
 
+/**
+ * Throwable, ami a játékos halálát jelzi.
+ */
 public class DeathThrowable extends Throwable {
 
     /**

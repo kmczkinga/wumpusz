@@ -1,6 +1,9 @@
 package hu.nye.progtech.wumplusz.service.throwable;
 
-public class ExitChoiceThrowable extends Throwable{
+/**
+ * Throwable, ami a játékbeli kilépés igényét jelzi.
+ */
+public class ExitChoiceThrowable extends Throwable {
     /**
      * Constructs a new throwable with {@code null} as its detail message.
      * The cause is not initialized, and may subsequently be initialized by a

@@ -23,8 +23,11 @@ public enum Entity {
         return this.label;
     }
 
+    /**
+     * Megkeresi az adott típust a hozzá tartozó label alapján.
+     */
     public static Entity valueOfLabel(Character label) {
-        for (Entity e: values()) {
+        for (Entity e : values()) {
             if (e.label.equals(label)) {
                 return e;
             }

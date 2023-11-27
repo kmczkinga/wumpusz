@@ -66,13 +66,16 @@ public class GameStore {
     }
 
     /**
-     * Beállítja a felhasználónevet.
+     * Visszaadja a userdata-t.
      */
 
     public UserData getUserData() {
         return userData;
     }
 
+    /**
+     * Beállítja a userdata-t.
+     */
     public void setUserData(UserData userData) {
         this.userData = userData;
     }

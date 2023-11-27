@@ -5,11 +5,14 @@ import java.util.List;
 import hu.nye.progtech.wumplusz.model.GameStore;
 import hu.nye.progtech.wumplusz.model.MapVO;
 import hu.nye.progtech.wumplusz.model.enums.GamePlayInstructions;
-import hu.nye.progtech.wumplusz.service.throwable.DeathThrowable;
 import hu.nye.progtech.wumplusz.service.input.UserInteractionHandler;
+import hu.nye.progtech.wumplusz.service.throwable.DeathThrowable;
 import hu.nye.progtech.wumplusz.service.throwable.ExitChoiceThrowable;
 import hu.nye.progtech.wumplusz.service.throwable.VictoryThrowable;
 
+/**
+ * A program játék részéért felelős komponens.
+ */
 public class GamePlayController {
 
     private static final List<GamePlayInstructions> GAME_PLAY_INSTRUCTIONS_LIST = List.of(GamePlayInstructions.LÉP,
@@ -22,7 +25,8 @@ public class GamePlayController {
 
     private final GamePlayStepController gamePlayStepController;
 
-    public GamePlayController(GameStore gameStore, UserInteractionHandler interactionHandler, GamePlayStepController gamePlayStepController) {
+    public GamePlayController(GameStore gameStore, UserInteractionHandler interactionHandler,
+                              GamePlayStepController gamePlayStepController) {
         this.gameStore = gameStore;
         this.interactionHandler = interactionHandler;
         this.gamePlayStepController = gamePlayStepController;
@@ -30,6 +34,8 @@ public class GamePlayController {
 
     /**
      * Elindítja a játékciklust.
+     * Beállítja a hős kezdő nyilait,
+     * és 0-ra állítja a lépésszámot.
      */
     public void start() {
         System.out.println("A játék elindult");
@@ -38,14 +44,19 @@ public class GamePlayController {
         gameStep();
     }
 
+    /**
+     * A játékbeli lépéseket vezérli.
+     * Valamit kiírja a pályát, nyilak számát, kezdő pozíciót.
+     */
     public void gameStep() {
         MapVO mapVO = gameStore.getMapVO();
-        while(true) {
+        while (true) {
             System.out.println(mapVO.toString());
 
             System.out.println("A hős iránya: " + mapVO.getHero().getHeroDirection().getLabel());
             System.out.println("Nyilak száma: " + mapVO.getHero().getArrowCount());
-            System.out.println("Kezdő pozíció: x: " + mapVO.getHero().getStartingRow() + ", y: " + mapVO.getHero().getStartingColumn() + "\n");
+            System.out.println("Kezdő pozíció: x: " + mapVO.getHero().getStartingRow()
+                    + ", y: " + mapVO.getHero().getStartingColumn() + "\n");
             GamePlayInstructions gamePlayInstructions;
             try {
                 gamePlayInstructions = interactionHandler.getChosenGamePlayInstruction(GAME_PLAY_INSTRUCTIONS_LIST);
@@ -61,7 +72,8 @@ public class GamePlayController {
                         System.out.println("Meghaltál!\n");
                         return;
                     } catch (VictoryThrowable victoryThrowable) {
-                        System.out.println("Visszaértél a kezdő pozícióra, nyertél! Lépéseid száma: " + (gameStore.getMapVO().getHero().getStepCount() + 1) + "\n");
+                        System.out.println("Visszaértél a kezdő pozícióra, nyertél! Lépéseid száma: "
+                                + (gameStore.getMapVO().getHero().getStepCount() + 1) + "\n");
                         gameStore.getUserData().setWins(gameStore.getUserData().getWins() + 1);
                         return;
                     }
@@ -78,15 +90,11 @@ public class GamePlayController {
                 case ARANYAT_FELSZED:
                     gamePlayStepController.pickUp(mapVO);
                     break;
-                case FELAD:
+                default:
                     return;
             }
             mapVO.getHero().increaseStepCount();
         }
 
     }
-
-
-
-
 }
