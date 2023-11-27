@@ -11,9 +11,8 @@ import hu.nye.progtech.wumplusz.model.enums.Entity;
 
 public class GameStore {
 
-    private String userName;
 
-    private Integer winCount;
+    private UserData userData;
 
     private MapVO mapVO;
 
@@ -69,20 +68,13 @@ public class GameStore {
     /**
      * Beállítja a felhasználónevet.
      */
-    public void setUserName(String userName) {
-        this.userName = userName;
+
+    public UserData getUserData() {
+        return userData;
     }
 
-    public String getUserName() {
-        return this.userName;
-    }
-
-    public Integer getWinCount() {
-        return winCount;
-    }
-
-    public void setWinCount(Integer winCount) {
-        this.winCount = winCount;
+    public void setUserData(UserData userData) {
+        this.userData = userData;
     }
 
     /**
@@ -91,7 +83,7 @@ public class GameStore {
     @Override
     public String toString() {
         return "GameStore{" +
-                "userName='" + userName + '\'' +
+                "userName='" + userData.toString() + '\'' +
                 ", mapVO=" + mapVO +
                 '}';
     }

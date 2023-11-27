@@ -7,11 +7,12 @@ import java.util.Scanner;
 
 import hu.nye.progtech.wumplusz.model.MapVO;
 import hu.nye.progtech.wumplusz.repository.GameRepository;
+import hu.nye.progtech.wumplusz.service.throwable.NoNameThrowable;
 
 /**
  * Komponens, amely betölti, elmenti a játékot txt fájlba.
  */
-public class TxtGameRepository implements GameRepository {
+public class TxtGameRepository implements GameRepository <MapVO> {
 
     private static final String FILE_NAME = "wumpluszinput.txt";
 
@@ -31,7 +32,7 @@ public class TxtGameRepository implements GameRepository {
      * Betölti az adott játékot.
      */
     @Override
-    public MapVO load() {
+    public MapVO load(String username) throws NoNameThrowable {
         return readFile();
     }
 

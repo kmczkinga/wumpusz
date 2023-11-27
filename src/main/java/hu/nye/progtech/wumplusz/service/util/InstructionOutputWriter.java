@@ -1,7 +1,11 @@
 package hu.nye.progtech.wumplusz.service.util;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import hu.nye.progtech.wumplusz.model.UserData;
 import hu.nye.progtech.wumplusz.model.enums.Entity;
 import hu.nye.progtech.wumplusz.model.enums.GamePlayInstructions;
 
@@ -24,7 +28,8 @@ public class InstructionOutputWriter {
         System.out.println("3. Betöltés adatbázisból");
         System.out.println("4. Mentés adatbázisba");
         System.out.println("5. Játék");
-        System.out.println("6. Kilépés");
+        System.out.println("6. High score táblázat");
+        System.out.println("7. Kilépés");
     }
 
     /**
@@ -54,5 +59,19 @@ public class InstructionOutputWriter {
         for (GamePlayInstructions gamePlayInstructions : gamePlayInstructionsList) {
             System.out.print(gamePlayInstructions + " ");
         }
+    }
+
+    public static void printLoadUsername() {
+        System.out.println("Adj meg egy nevet, amit be szerentél tölteni!");
+    }
+
+    public static void printHighScore(List<UserData> userDatas) {
+        System.out.println("Highscore: ");
+        List<UserData> sorted =
+                userDatas.stream().sorted(Comparator.comparing(UserData::getWins)).collect(Collectors.toList());
+        for(int i = sorted.size() - 1; i >= 0; i--) {
+            System.out.println(sorted.get(i).getUsername() + ": " + sorted.get(i).getWins() + " nyerés");
+        }
+        System.out.println();
     }
 }

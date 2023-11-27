@@ -1,14 +1,18 @@
 package hu.nye.progtech.wumplusz.service.game;
 
 import java.util.InputMismatchException;
+import java.util.List;
 
 import hu.nye.progtech.wumplusz.model.GameStore;
 import hu.nye.progtech.wumplusz.model.MapVO;
+import hu.nye.progtech.wumplusz.model.UserData;
 import hu.nye.progtech.wumplusz.repository.impl.JdbcGameRepository;
 import hu.nye.progtech.wumplusz.repository.impl.TxtGameRepository;
 import hu.nye.progtech.wumplusz.service.input.UserInteractionHandler;
 import hu.nye.progtech.wumplusz.service.map.MapEditor;
 import hu.nye.progtech.wumplusz.service.map.MapValidator;
+import hu.nye.progtech.wumplusz.service.throwable.NoNameThrowable;
+import hu.nye.progtech.wumplusz.service.util.InstructionOutputWriter;
 
 /**
  * Komponens, ami a játék menetét vezérli.
@@ -44,9 +48,9 @@ public class GameController {
      * Ez a játékosnév bekérése.
      */
     public void handlePreStart() {
-        final String userName = interactionHandler.getUsername();
-        gameStore.setUserName(userName);
-        gameStore.setWinCount(0);
+        String userName = interactionHandler.getUsername();
+        UserData userData = new UserData(userName, 0);
+        gameStore.setUserData(userData);
     }
 
     /**
@@ -71,19 +75,30 @@ public class GameController {
                 handleMenu();
                 break;
             case 2:
-                MapVO mapVO = txtGameRepository.load();
-                if (MapValidator.isValid(mapVO)) {
-                    gameStore.setMapVO(mapVO);
-                } else {
-                    System.out.println("Hibás txt fájl! Az entitás számok nem megfelelőek! Javítsd ki, majd indítsd újra a játékot!");
-                    System.exit(0);
+                try {
+                    MapVO mapVO = txtGameRepository.load(null);
+                    if (MapValidator.isValid(mapVO)) {
+                        gameStore.setMapVO(mapVO);
+                    } else {
+                        System.out.println("Hibás txt fájl! Az entitás számok nem megfelelőek! Javítsd ki, majd indítsd újra a játékot!");
+                        System.exit(0);
+                    }
+                } catch (NoNameThrowable noNameThrowable) {
+                    // Ezt nem használjuk
                 }
-
                 handleMenu();
                 break;
             case 3:
-                jdbcGameRepository.load();
-                handleMenu();
+                String username = interactionHandler.getUsername();
+                UserData userData = null;
+                try {
+                    userData = jdbcGameRepository.load(username);
+                    gameStore.setUserData(userData);
+                    handleMenu();
+                } catch (NoNameThrowable noNameThrowable) {
+                    handleMenu();
+                }
+
                 break;
             case 4:
                 jdbcGameRepository.save();
@@ -94,6 +109,11 @@ public class GameController {
                 handleMenu();
                 break;
             case 6:
+                List<UserData> users = jdbcGameRepository.readAllUsers();
+                InstructionOutputWriter.printHighScore(users);
+                handleMenu();
+                break;
+            case 7:
                 System.exit(0);
                 break;
             default:

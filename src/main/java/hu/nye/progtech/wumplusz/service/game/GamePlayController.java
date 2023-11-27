@@ -61,8 +61,8 @@ public class GamePlayController {
                         System.out.println("Meghaltál!\n");
                         return;
                     } catch (VictoryThrowable victoryThrowable) {
-                        System.out.println("Visszaértél a kezdő pozícióra, nyertél!\n");
-                        gameStore.setWinCount(gameStore.getWinCount() + 1);
+                        System.out.println("Visszaértél a kezdő pozícióra, nyertél! Lépéseid száma: " + (gameStore.getMapVO().getHero().getStepCount() + 1) + "\n");
+                        gameStore.getUserData().setWins(gameStore.getUserData().getWins() + 1);
                         return;
                     }
                     break;

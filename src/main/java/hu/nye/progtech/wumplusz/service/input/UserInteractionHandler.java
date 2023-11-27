@@ -115,4 +115,9 @@ public class UserInteractionHandler {
         }
         return result;
     }
+
+    public String handleLoadUsername() {
+        InstructionOutputWriter.printLoadUsername();
+        return inputReader.readString();
+    }
 }

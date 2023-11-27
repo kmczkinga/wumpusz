@@ -1,0 +1,5 @@
+CREATE TABLE GAME_SAVES (
+  id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  username varchar(50) NOT NULL,
+  wins int NOT NULL
+);
