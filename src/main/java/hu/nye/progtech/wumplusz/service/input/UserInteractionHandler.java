@@ -118,7 +118,7 @@ public class UserInteractionHandler {
             }
         }
         if (result == null) {
-            System.out.println("Nem létező instructió, próbáld újra!");
+            System.out.println("\nNem létező instrukció, próbáld újra!");
             return getChosenGamePlayInstruction(gamePlayInstructions);
         }
         return result;

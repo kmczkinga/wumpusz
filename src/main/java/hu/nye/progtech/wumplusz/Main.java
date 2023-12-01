@@ -14,6 +14,7 @@ import hu.nye.progtech.wumplusz.service.game.GamePlayStepController;
 import hu.nye.progtech.wumplusz.service.input.InputReader;
 import hu.nye.progtech.wumplusz.service.input.UserInteractionHandler;
 import hu.nye.progtech.wumplusz.service.map.MapEditor;
+import hu.nye.progtech.wumplusz.service.util.FileUtil;
 
 /**
  * Belépési pont a Wumplusz játékba.
@@ -30,7 +31,8 @@ public class Main {
         UserInteractionHandler interactionHandler = new UserInteractionHandler(inputReader);
         GameStore gameStore = new GameStore();
         MapEditor mapEditor = new MapEditor(inputReader, gameStore, interactionHandler);
-        TxtGameRepository txtGameRepository = new TxtGameRepository();
+        FileUtil fileUtil = new FileUtil();
+        TxtGameRepository txtGameRepository = new TxtGameRepository(fileUtil);
         Connection connection = null;
         try {
             connection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "");

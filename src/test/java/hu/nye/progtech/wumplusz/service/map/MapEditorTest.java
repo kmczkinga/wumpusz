@@ -7,14 +7,16 @@ import static org.mockito.Mockito.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import hu.nye.progtech.wumplusz.model.GameStore;
+import hu.nye.progtech.wumplusz.model.Hero;
 import hu.nye.progtech.wumplusz.model.MapVO;
 import hu.nye.progtech.wumplusz.model.enums.Entity;
+import hu.nye.progtech.wumplusz.model.enums.HeroDirection;
 import hu.nye.progtech.wumplusz.service.input.InputReader;
 import hu.nye.progtech.wumplusz.service.input.UserInteractionHandler;
+import hu.nye.progtech.wumplusz.service.throwable.ExitChoiceThrowable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -27,16 +29,7 @@ public class MapEditorTest {
 
     private static final Integer BIG_MAP_SIZE = 15;
 
-    private static final Character[][] MAP = new Character[][]{
-            {'F','F','F','F','F','F','F','F'},
-            {'F',' ',' ',' ',' ',' ',' ','F'},
-            {'F',' ',' ',' ',' ',' ',' ','F'},
-            {'F',' ',' ',' ',' ',' ',' ','F'},
-            {'F',' ',' ',' ',' ',' ',' ','F'},
-            {'F',' ',' ',' ',' ','W',' ','F'},
-            {'F',' ',' ',' ',' ',' ',' ','F'},
-            {'F','F','F','F','F','F','F','F'}
-    };
+
 
     private static final List<Entity> SMALL_MAP_ENTITIES1 = List.of(Entity.ARANY, Entity.HOS, FAL, Entity.VEREM);
 
@@ -55,7 +48,7 @@ public class MapEditorTest {
 
     private static final String MAP_OUTPUT = "  0 1 2 3 4 5 6 7 \n" +
             "0 F F F F F F F F \n" +
-            "1 F W           F \n" +
+            "1 F U           F \n" +
             "2 F             F \n" +
             "3 F             F \n" +
             "4 F             F \n" +
@@ -66,7 +59,7 @@ public class MapEditorTest {
             "Nem tehető ide ez az entitás, próbáld máshová!\n" +
             "  0 1 2 3 4 5 6 7 \n" +
             "0 F F F F F F F F \n" +
-            "1 F W           F \n" +
+            "1 F U           F \n" +
             "2 F             F \n" +
             "3 F             F \n" +
             "4 F             F \n" +
@@ -76,9 +69,9 @@ public class MapEditorTest {
             "\n" +
             "  0 1 2 3 4 5 6 7 \n" +
             "0 F F F F F F F F \n" +
-            "1 F W           F \n" +
+            "1 F U           F \n" +
             "2 F             F \n" +
-            "3 F     V       F \n" +
+            "3 F     P       F \n" +
             "4 F             F \n" +
             "5 F             F \n" +
             "6 F             F \n" +
@@ -86,14 +79,23 @@ public class MapEditorTest {
             "\n" +
             "  0 1 2 3 4 5 6 7 \n" +
             "0 F F F F F F F F \n" +
-            "1 F W           F \n" +
+            "1 F U           F \n" +
             "2 F             F \n" +
-            "3 F     V       F \n" +
-            "4 F       F     F \n" +
+            "3 F     P       F \n" +
+            "4 F       H     F \n" +
             "5 F             F \n" +
             "6 F             F \n" +
             "7 F F F F F F F F \n" +
-            "\n";
+            "\n" +
+            "  0 1 2 3 4 5 6 7 \n" +
+            "0 F F F F F F F F \n" +
+            "1 F U           F \n" +
+            "2 F             F \n" +
+            "3 F     P       F \n" +
+            "4 F       H     F \n" +
+            "5 F         W   F \n" +
+            "6 F             F \n" +
+            "7 F F F F F F F F \n\n";
 
     private static final String EMPTY_MAP_OUTPUT = "A pálya méretét 6-20-ig add meg!\n" +
             "6-20-ig add meg!\n" +
@@ -129,38 +131,41 @@ public class MapEditorTest {
     }
 
     @Test
-    public void testEditShouldPlaceDownAnEntity() {
+    public void testEditShouldPlaceDownAnEntity() throws ExitChoiceThrowable {
         // given, when
-        /*
         System.setOut(new PrintStream(outputStreamCaptor));
-        MapVO mapVOSpy = new MapVO(8);
-        given(gameStore.getMapVO()).willReturn(mapVOSpy);
+        MapVO mapVO = new MapVO(8);
+        Hero hero = Mockito.mock(Hero.class);
+        mapVO.setHero(hero);
+        given(gameStore.getMapVO()).willReturn(mapVO).willReturn(mapVO);
         given(gameStore.getAvailableEntities())
                 .willReturn(SMALL_MAP_ENTITIES)
                 .willReturn(SMALL_MAP_ENTITIES1)
                 .willReturn(SMALL_MAP_ENTITIES2)
                 .willReturn(SMALL_MAP_ENTITIES3)
                 .willReturn(SMALL_MAP_ENTITIES3)
+                .willReturn(SMALL_MAP_ENTITIES3)
                 .willReturn(SMALL_MAP_ENTITIES3);
         when(interactionHandler.getChosenEntity(SMALL_MAP_ENTITIES)).thenReturn(WUMPUSZ);
         when(interactionHandler.getChosenEntity(SMALL_MAP_ENTITIES1)).thenReturn(ARANY);
         when(interactionHandler.getChosenEntity(SMALL_MAP_ENTITIES2)).thenReturn(VEREM);
-        when(interactionHandler.getChosenEntity(SMALL_MAP_ENTITIES3)).thenReturn(FAL);
-        given(interactionHandler.getCoordinate(mapVOSpy, "X"))
+        when(interactionHandler.getChosenEntity(SMALL_MAP_ENTITIES3)).thenReturn(HOS).thenReturn(FAL).thenThrow(ExitChoiceThrowable.class);
+        given(interactionHandler.getCoordinate(mapVO, "X"))
                 .willReturn(1)
                 .willReturn(1)
                 .willReturn(3)
-                .willReturn(4);
-        given(interactionHandler.getCoordinate(mapVOSpy, "Y"))
+                .willReturn(4)
+                .willReturn(5);
+        given(interactionHandler.getCoordinate(mapVO, "Y"))
                 .willReturn(1)
                 .willReturn(1)
                 .willReturn(3)
-                .willReturn(4);
+                .willReturn(4)
+                .willReturn(5);
+        given(interactionHandler.getHeroDirection()).willReturn(HeroDirection.N);
         underTest.edit();
         // then
         assertEquals(MAP_OUTPUT, outputStreamCaptor.toString());
-
-         */
     }
 
     @Test
@@ -204,5 +209,15 @@ public class MapEditorTest {
         List<Entity> result = underTest.createAvailableEntityList(20);
         // then
         assertEquals(result, BIG_MAP_ENTITIES);
+    }
+
+    @Test
+    public void testCreateAvailableEntityListhouldReturnMiddleSizedEntityList() {
+        // given
+
+        // when
+        List<Entity> result = underTest.createAvailableEntityList(10);
+        // then
+        assertEquals(result, MEDIUM_MAP_ENTITIES);
     }
 }

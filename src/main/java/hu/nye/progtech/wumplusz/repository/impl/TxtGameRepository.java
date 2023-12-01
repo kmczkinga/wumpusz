@@ -8,17 +8,20 @@ import java.util.Scanner;
 import hu.nye.progtech.wumplusz.model.MapVO;
 import hu.nye.progtech.wumplusz.repository.GameRepository;
 import hu.nye.progtech.wumplusz.service.throwable.NoNameThrowable;
+import hu.nye.progtech.wumplusz.service.util.FileUtil;
 
 /**
  * Komponens, amely betölti, elmenti a játékot txt fájlba.
  */
 public class TxtGameRepository implements GameRepository<MapVO> {
 
-    private static final String FILE_NAME = "wumpluszinput.txt";
-
     private Scanner scanner;
 
-    private InputStream inputStream;
+    private FileUtil fileUtil;
+
+    public TxtGameRepository(FileUtil fileUtil) {
+        this.fileUtil = fileUtil;
+    }
 
     /**
      * Elmenti az adott játékot.
@@ -47,14 +50,14 @@ public class TxtGameRepository implements GameRepository<MapVO> {
      * Ha nem tudja jól beolvasni, leállítja a programot.
      * Ha sikeres, visszaadja a MapVO-t és kiírja, hogy sikeres.
      */
-    private MapVO readFile() {
+    public MapVO readFile() {
         Integer mapSize = null;
         String column = null;
         Integer row = null;
         String heroDirection = null;
         String currentRow = null;
         Character[][] map = null;
-        scanner = getScanner();
+        scanner = fileUtil.getScanner();
         int i = 0;
         try {
             while (scanner.hasNextLine()) {
@@ -81,19 +84,5 @@ public class TxtGameRepository implements GameRepository<MapVO> {
         scanner.close();
         System.out.println("Sikeres beolvasás!");
         return new MapVO(mapSize, column, row - 1, heroDirection, map);
-    }
-
-    /**
-     * Megnyitja a fájlt egy Scanner-rel.
-     *
-     * Ha nem létezik, nem találja a fájlt, leállítja a programot.
-     */
-    private Scanner getScanner() {
-        inputStream = this.getClass().getClassLoader().getResourceAsStream(FILE_NAME);
-        if (inputStream == null) {
-            System.out.println("A fájl nem létezik! Tedd a helyére, majd indítsd újra a játékot!");
-            System.exit(0);
-        }
-        return new Scanner(inputStream);
     }
 }

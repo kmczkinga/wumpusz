@@ -42,10 +42,10 @@ public class JdbcGameRepository implements GameRepository<UserData> {
         try {
             deleteCurrentSave();
             insertNewSave();
+            System.out.println("Sikeresen elmentetted a játékot!");
         } catch (SQLException e) {
             System.out.println("Hiba az adatbázisba mentés közben: " + e);
         }
-        System.out.println("Sikeresen elmentetted a játékot!");
     }
 
     /**

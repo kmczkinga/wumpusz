@@ -152,4 +152,18 @@ public class Hero {
     public Integer getStartingRow() {
         return startingRow;
     }
+
+    /**
+     * Beállítja a hős kezdő oszlopát.
+     */
+    public void setStartingColumn(Integer startingColumn) {
+        this.startingColumn = startingColumn;
+    }
+
+    /**
+     * Beállítja a hős kezdő sorát.
+     */
+    public void setStartingRow(Integer startingRow) {
+        this.startingRow = startingRow;
+    }
 }

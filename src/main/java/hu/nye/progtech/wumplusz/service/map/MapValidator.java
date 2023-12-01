@@ -45,7 +45,7 @@ public class MapValidator {
         }
         Boolean correctWumpusCount = ((mapVO.getSize() >= 6 && mapVO.getSize() <= 8 && wumpusCount == 1)
         || (mapVO.getSize() >= 9 && mapVO.getSize() <= 14 && wumpusCount == 2)
-        || (mapVO.getSize() >= 15 && mapVO.getSize() <= 20 && wumpusCount == 1));
+        || (mapVO.getSize() >= 15 && mapVO.getSize() <= 20 && wumpusCount == 3));
         return correctWumpusCount && goldCount == 1 && heroCount == 1;
     }
 }

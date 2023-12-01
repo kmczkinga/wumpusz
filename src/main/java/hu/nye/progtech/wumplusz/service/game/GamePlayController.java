@@ -15,7 +15,7 @@ import hu.nye.progtech.wumplusz.service.throwable.VictoryThrowable;
  */
 public class GamePlayController {
 
-    private static final List<GamePlayInstructions> GAME_PLAY_INSTRUCTIONS_LIST = List.of(GamePlayInstructions.LÉP,
+    public static final List<GamePlayInstructions> GAME_PLAY_INSTRUCTIONS_LIST = List.of(GamePlayInstructions.LÉP,
             GamePlayInstructions.FORDUL_JOBBRA, GamePlayInstructions.FORDUL_BALRA, GamePlayInstructions.LŐ,
             GamePlayInstructions.ARANYAT_FELSZED, GamePlayInstructions.FELAD);
 

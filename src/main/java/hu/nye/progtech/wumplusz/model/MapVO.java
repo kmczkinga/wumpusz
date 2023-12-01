@@ -1,5 +1,8 @@
 package hu.nye.progtech.wumplusz.model;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 import hu.nye.progtech.wumplusz.model.enums.Entity;
 import hu.nye.progtech.wumplusz.model.enums.HeroDirection;
 
@@ -87,6 +90,13 @@ public class MapVO {
     }
 
     /**
+     * Beállítja a hero-t.
+     */
+    public void setHero(Hero hero) {
+        this.hero = hero;
+    }
+
+    /**
      * Visszaadja a pálya méretét.
      */
     public Integer getSize() {
@@ -166,6 +176,13 @@ public class MapVO {
     }
 
     /**
+     * Visszaadja a mapot.
+     */
+    public Character[][] getMap() {
+        return map;
+    }
+
+    /**
      * Az ASCII táblázat alapján átalakítja a betű koordinátát számmá.
      */
     private Integer columnStringToInt(String columnString) {
@@ -179,5 +196,31 @@ public class MapVO {
         this.map[row][column] = 'H';
         this.hero.setHeroRow(row);
         this.hero.setHeroColumn(column);
+    }
+
+    /**
+     * Beállítja a mapot.
+     */
+    public void setMap(Character[][] map) {
+        this.map = map;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        MapVO mapVO = (MapVO) o;
+        return Objects.equals(size, mapVO.size) && Objects.equals(hero, mapVO.hero) && Arrays.equals(map, mapVO.map);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(size, hero);
+        result = 31 * result + Arrays.hashCode(map);
+        return result;
     }
 }

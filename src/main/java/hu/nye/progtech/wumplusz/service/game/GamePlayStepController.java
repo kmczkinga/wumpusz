@@ -196,7 +196,7 @@ public class GamePlayStepController {
      * wumpusznál dob egy DeathThrowablet,
      * aranynál csak jelzi azt.
      */
-    private Boolean checkStep(MapVO mapVO) throws DeathThrowable {
+    public Boolean checkStep(MapVO mapVO) throws DeathThrowable {
         Character ch = Character.MIN_VALUE;
         Integer x = mapVO.getHero().getHeroColumn();
         Integer y = mapVO.getHero().getHeroRow();
